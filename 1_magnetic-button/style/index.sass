@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap')
+
+html
+    font-size: 10px
+
+*, *::before, *::after
+    box-sizing: border-box
+
+body
+    background: #fff
+    color: #111
+    font-size: 1.6rem
+    font-family: 'Lato', sans-serif
+    overflow-x: hidden
+    width: 100%
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 5rem
+
+//
+
+.btn
+    width: 20rem
+    height: 20rem
+    // border-radius: 100%
+    background: #4575ce
+    color: #fff
+    font-size: 1.6rem
+
+.helper
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    margin: auto
+    z-index: -1
+    // 
+    width: 300px
+    height: 300px
+    border: 3px dashed red
+    &--square
+    &--circle
+        border-radius: 100%
+        border-color: #dc55de
+    
+
+//
+
+.magnetic
+    &__button
+        cursor: pointer
+        font-size: 1.8rem
+        font-weight: 600
+        transition: .3s ease-in-out color
+        color: #333
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 1.4rem 2.8rem
+        width: 20rem
+        height: 5rem
+        position: relative
+        &::before
+            content: ''
+            position: absolute
+            bottom: 0
+            left: 0
+            width: 100%
+            height: 5px
+            background: #333
+            z-index: -1
+            transition: .3s ease-in-out all
+        &:hover
+            color: #fff
+            &::before
+                transition: .3s ease-in-out all
+                height: 100%
+        &--1
