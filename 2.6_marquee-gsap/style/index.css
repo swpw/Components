@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+html {
+  font-size: 10px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: #fff;
+  color: #111;
+  font-size: 1.6rem;
+  font-family: "Lato", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Main */
+.scroll {
+  height: 50vh;
+}
+
+.text-marquee {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.text-single {
+  position: relative;
+  white-space: nowrap;
+}
+
+.text {
+  font-size: 6.4rem;
+  display: inline-block;
+  margin-right: 2rem;
+}
+
+.marquee--1, .marquee--2, .marquee--3 {
+  margin: 15rem 0;
+}
+.marquee--1 .text, .marquee--2 .text, .marquee--3 .text {
+  font-weight: 900;
+}
+.marquee--1 .text:nth-child(odd), .marquee--2 .text:nth-child(odd), .marquee--3 .text:nth-child(odd) {
+  color: transparent;
+  text-shadow: none;
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.2);
+}
+
+.marquee--1 .text {
+  margin-right: 10vw;
+}
+.marquee--2 .text {
+  margin-right: 20vw;
+}
+.marquee--3 .text {
+  margin-right: 40vw;
+}/*# sourceMappingURL=index.css.map */

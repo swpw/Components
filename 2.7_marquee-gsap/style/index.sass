@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap')
+
+html
+    font-size: 10px
+
+*, *::before, *::after
+    box-sizing: border-box
+
+body
+    background: #fff
+    color: #111
+    font-size: 1.6rem
+    font-family: 'Lato', sans-serif
+    overflow-x: hidden
+
+/* Main */
+
+.scroll
+    margin: 110vh
+
+.mq-items
+    overflow: hidden
+
+.mq-row
+    position: relative
+    display: flex
+    align-items: center
+    white-space: nowrap
+
+.mq-item
+    position: relative
+    font-size: 5vw
+    font-weight: 900
+    flex: 0 0 50%
+    padding: 58px 0
+    text-transform: uppercase
+
+.mq-item.-stroke
+    color: transparent
+    text-shadow: none
+    -webkit-text-stroke: 2px rgba(0, 0, 0, 0.2)
