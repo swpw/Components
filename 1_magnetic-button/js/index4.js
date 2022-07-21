@@ -6,16 +6,19 @@ class MagneticObject{
 		this.leaveArea = leaveArea
 		this.animation = animation
 
-		
+		// set default value with ??=
 
 		this.previouslyLeft = true
 		this.hasMouseEntered = false
 		this.mouse = { x: 0, y: 0 }
 
-		window.addEventListener('mousemove', ({ pageX: x, pageY: y }) => 
+		window.addEventListener('mousemove', ({ clientX: x, clientY: y }) => 
 			this.mouse = { x, y })
 
 		window.addEventListener('resize', () => 
+			this.rect = this.target.getBoundingClientRect())
+
+		window.addEventListener('scroll', () => 
 			this.rect = this.target.getBoundingClientRect())
 
 		this.render()
