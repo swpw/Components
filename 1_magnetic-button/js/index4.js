@@ -311,3 +311,6 @@ const magneticChild2 = new MagneticObject(settingsChild1)
 
 settingsChild1.target = document.querySelectorAll('.magnetic__button')[2].children[0]
 const magneticChild3 = new MagneticObject(settingsChild1)
+
+// Dodac liczenie dystansu/factor na jakimkolwiek targecie. Moze byc to jakikolwiek inny element
+// ktory bedzie kontrolowal magnetica
