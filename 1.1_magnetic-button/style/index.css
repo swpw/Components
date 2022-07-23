@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+html {
+  font-size: 10px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: #fff;
+  color: #111;
+  font-size: 1.6rem;
+  font-family: "Lato", sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+  padding: 12rem;
+  border: 2px dashed rgba(221, 51, 51, 0.6);
+}
+
+.magnetic__button {
+  cursor: pointer;
+  font-size: 1.8rem;
+  font-weight: 600;
+  transition: 0.3s ease-in-out color;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 2.8rem;
+  width: 20rem;
+  height: 5rem;
+  position: relative;
+}
+.magnetic__button::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: #333;
+  z-index: -1;
+  transition: 0.3s ease-in-out all;
+}
+.magnetic__button:hover {
+  color: #fff;
+}
+.magnetic__button:hover::before {
+  transition: 0.3s ease-in-out all;
+  height: 100%;
+}/*# sourceMappingURL=index.css.map */
