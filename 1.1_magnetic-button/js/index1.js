@@ -178,8 +178,6 @@ class MagneticObject{
 		leave.style.height = this.helper.leave.height + 'px'
 		leave.style.borderRadius = this.helper.leave.radius + '%'
 		leave.style.border = '1px dashed blue'
-
-		console.log('update', this.rect.left, this.rect.top)
 	}
 
 	removeHelper = () => {
@@ -377,32 +375,34 @@ const magnetic = new MagneticObject({
 	helper: true
 })
 
-const magneticChild = new MagneticObject({
-	target: document.querySelector('main'),
-	entryArea: {
-		name: 'square-padding',
-		areaDistance: 100,
-		areaPadding: 0,
-		onMouseEnter: () => {
-			console.log('Entered - child')
-		}
-	},
-	leaveArea: {
-		name: 'square-padding',
-		areaDistance: 150,
-		areaPadding: 50,
-		translateFactor: .1,
-		maxDistance: 5,
-		onMouseLeave: () => {
-			console.log('Leave - child')
-		}
-	},
-	animation: {
-		target: document.querySelectorAll('.magnetic__button')[0].children[0],
-		duration: .6
-	},
-	helper: true
-})
+magnetic.removeHelper()
+
+// const magneticChild = new MagneticObject({
+// 	target: document.querySelector('main'),
+// 	entryArea: {
+// 		name: 'square-padding',
+// 		areaDistance: 100,
+// 		areaPadding: 0,
+// 		onMouseEnter: () => {
+// 			console.log('Entered - child')
+// 		}
+// 	},
+// 	leaveArea: {
+// 		name: 'square-padding',
+// 		areaDistance: 150,
+// 		areaPadding: 50,
+// 		translateFactor: .1,
+// 		maxDistance: 5,
+// 		onMouseLeave: () => {
+// 			console.log('Leave - child')
+// 		}
+// 	},
+// 	animation: {
+// 		target: document.querySelectorAll('.magnetic__button')[0].children[0],
+// 		duration: .6
+// 	},
+// 	helper: true
+// })
 
 /*
 	target -> target for math calculations. In/Out detection
