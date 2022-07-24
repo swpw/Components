@@ -8,6 +8,6 @@
 
 ## Progress
 
-🟩 - **1.1_magnetic-button**
+🟩 - **[1.1_magnetic-button](https://swpw.github.io/Components/1.1_magnetic-button/)**
 
-🟧 - **3.2_scroll**
+🟧 - **[3.2_scroll](https://swpw.github.io/Components/3.2_scroll)**
