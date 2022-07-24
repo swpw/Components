@@ -10,10 +10,8 @@ class MagneticObject{
 
 
 		/* Set default values */
-		this.entryArea.areaDistance ??= 0
-		this.entryArea.areaPadding ??= 0
-		this.leaveArea.areaDistance ??= 0
-		this.leaveArea.areaPadding ??= 0
+		this.entryArea.distance ??= 0
+		this.leaveArea.distance ??= 0
 		this.leaveArea.translateFactor ??= 1
 		this.leaveArea.maxDistance ??= null
 		this.animation.target ??= this.target
@@ -89,7 +87,7 @@ class MagneticObject{
 	updateHelper = () => {
 		// Circle Entry
 		if( this.entryArea.name === 'circle' ){
-			const size = 2 * this.entryArea.areaDistance
+			const size = 2 * this.entryArea.distance
 
 			this.helper.entry = {
 				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ),
@@ -102,7 +100,7 @@ class MagneticObject{
 
 		// Circle Leave
 		if(this.leaveArea.name === 'circle'){
-			const size = 2 * this.leaveArea.areaDistance
+			const size = 2 * this.leaveArea.distance
 
 			this.helper.leave = {
 				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ) ,
@@ -116,10 +114,10 @@ class MagneticObject{
 		// Square padding Entry
 		if( this.entryArea.name === 'square-padding' ){
 			this.helper.entry = {
-				x: window.pageXOffset + this.rect.left - this.entryArea.areaPadding,
-				y: window.pageYOffset + this.rect.top - this.entryArea.areaPadding,
-				width: this.rect.width + ( 2 * this.entryArea.areaPadding ),
-				height: this.rect.height + ( 2 * this.entryArea.areaPadding ),
+				x: window.pageXOffset + this.rect.left - this.entryArea.distance,
+				y: window.pageYOffset + this.rect.top - this.entryArea.distance,
+				width: this.rect.width + ( 2 * this.entryArea.distance ),
+				height: this.rect.height + ( 2 * this.entryArea.distance ),
 				radius: 0,
 			}
 		}
@@ -127,17 +125,17 @@ class MagneticObject{
 		// Square padding Leave
 		if(this.leaveArea.name === 'square-padding'){
 			this.helper.leave = {
-				x: window.pageXOffset + this.rect.left - this.leaveArea.areaPadding,
-				y: window.pageYOffset + this.rect.top - this.leaveArea.areaPadding,
-				width: this.rect.width + ( 2 * this.leaveArea.areaPadding ),
-				height: this.rect.height + ( 2 * this.leaveArea.areaPadding ),
+				x: window.pageXOffset + this.rect.left - this.leaveArea.distance,
+				y: window.pageYOffset + this.rect.top - this.leaveArea.distance,
+				width: this.rect.width + ( 2 * this.leaveArea.distance ),
+				height: this.rect.height + ( 2 * this.leaveArea.distance ),
 				radius: 0,
 			}
 		}
 
 		// Square distance Entry
 		if( this.entryArea.name === 'square-distance' ){
-			const size = 2 * this.entryArea.areaPadding
+			const size = 2 * this.entryArea.distance
 
 			this.helper.entry = {
 				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ),
@@ -150,7 +148,7 @@ class MagneticObject{
 
 		// Square distance Leave
 		if(this.leaveArea.name === 'square-distance'){
-			const size = 2 * this.leaveArea.areaPadding
+			const size = 2 * this.leaveArea.distance
 
 			this.helper.leave = {
 				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ),
@@ -224,7 +222,7 @@ class MagneticObject{
 	renderCircle = mouseDistance => {
 		/* CIRCLE ENTRY */
 		if( this.entryArea.name === 'circle'
-			&& mouseDistance <= this.entryArea.areaDistance
+			&& mouseDistance <= this.entryArea.distance
 			&& !this.hasMouseEntered ){
 
 				this.hasMouseEntered = true
@@ -235,7 +233,7 @@ class MagneticObject{
 
 		/* CIRCLE LEAVE */
 		if( this.leaveArea.name === 'circle'  
-			&& mouseDistance <= this.leaveArea.areaDistance
+			&& mouseDistance <= this.leaveArea.distance
 			&& this.hasMouseEntered ){
 
 				/* Mouse's inside element area */ 
@@ -258,10 +256,10 @@ class MagneticObject{
 	renderSquarePadding = mouseDistance => {
 		/* SQUARE PADDING ENTRY */
 		if( this.entryArea.name === 'square-padding'
-			&& this.mouse.x > this.rect.left - this.entryArea.areaPadding 
-			&& this.mouse.x < this.rect.right + this.entryArea.areaPadding 
-			&& this.mouse.y > this.rect.top - this.entryArea.areaPadding 
-			&& this.mouse.y < this.rect.bottom + this.entryArea.areaPadding
+			&& this.mouse.x > this.rect.left - this.entryArea.distance 
+			&& this.mouse.x < this.rect.right + this.entryArea.distance 
+			&& this.mouse.y > this.rect.top - this.entryArea.distance 
+			&& this.mouse.y < this.rect.bottom + this.entryArea.distance
 			&& !this.hasMouseEntered ){
 
 				this.hasMouseEntered = true
@@ -272,10 +270,10 @@ class MagneticObject{
 
 		/* SQUARE PADDING LEAVE */
 		if( this.leaveArea.name === 'square-padding'
-			&& this.mouse.x > this.rect.left - this.leaveArea.areaPadding 
-			&& this.mouse.x < this.rect.right + this.leaveArea.areaPadding 
-			&& this.mouse.y > this.rect.top - this.leaveArea.areaPadding 
-			&& this.mouse.y < this.rect.bottom + this.leaveArea.areaPadding
+			&& this.mouse.x > this.rect.left - this.leaveArea.distance 
+			&& this.mouse.x < this.rect.right + this.leaveArea.distance 
+			&& this.mouse.y > this.rect.top - this.leaveArea.distance 
+			&& this.mouse.y < this.rect.bottom + this.leaveArea.distance
 			&& this.hasMouseEntered ){
 
 				/* Mouse's inside element area */ 
@@ -301,10 +299,10 @@ class MagneticObject{
 		const centerY = ( this.rect.top + ( this.rect.height / 2 ) )
 
 		if( this.entryArea.name === 'square-distance'
-			&& this.mouse.x > centerX - this.entryArea.areaPadding 
-			&& this.mouse.x < centerX + this.entryArea.areaPadding 
-			&& this.mouse.y > centerY - this.entryArea.areaPadding 
-			&& this.mouse.y < centerY + this.entryArea.areaPadding
+			&& this.mouse.x > centerX - this.entryArea.distance 
+			&& this.mouse.x < centerX + this.entryArea.distance 
+			&& this.mouse.y > centerY - this.entryArea.distance 
+			&& this.mouse.y < centerY + this.entryArea.distance
 			&& !this.hasMouseEntered ){
 
 				this.hasMouseEntered = true
@@ -315,10 +313,10 @@ class MagneticObject{
 
 		/* SQUARE DISTANCE LEAVE */
 		if( this.leaveArea.name === 'square-distance'
-			&& this.mouse.x > centerX - this.leaveArea.areaPadding 
-			&& this.mouse.x < centerX + this.leaveArea.areaPadding 
-			&& this.mouse.y > centerY - this.leaveArea.areaPadding 
-			&& this.mouse.y < centerY + this.leaveArea.areaPadding
+			&& this.mouse.x > centerX - this.leaveArea.distance 
+			&& this.mouse.x < centerX + this.leaveArea.distance 
+			&& this.mouse.y > centerY - this.leaveArea.distance 
+			&& this.mouse.y < centerY + this.leaveArea.distance
 			&& this.hasMouseEntered ){
 
 				/* Mouse's inside element area */ 
@@ -362,16 +360,14 @@ const magnetic = new MagneticObject({
 	target: document.querySelector('main'),
 	entryArea: {
 		name: 'square-padding',
-		areaDistance: 100,
-		areaPadding: 0,
+		distance: 50,
 		onMouseEnter: () => {
 			console.log('Entered - parent')
 		}
 	},
 	leaveArea: {
 		name: 'square-padding',
-		areaDistance: 150,
-		areaPadding: 50,
+		distance: 80,
 		translateFactor: .3,
 		maxDistance: null,
 		onMouseLeave: () => {
@@ -391,16 +387,14 @@ const magneticChild = new MagneticObject({
 	target: document.querySelector('main'),
 	entryArea: {
 		name: 'square-padding',
-		areaDistance: 100,
-		areaPadding: 0,
+		distance: 50,
 		onMouseEnter: () => {
 			console.log('Entered - child')
 		}
 	},
 	leaveArea: {
 		name: 'square-padding',
-		areaDistance: 150,
-		areaPadding: 50,
+		distance: 80,
 		translateFactor: .1,
 		maxDistance: 5,
 		onMouseLeave: () => {
@@ -417,25 +411,21 @@ const magneticChild = new MagneticObject({
 })
 
 /*
+	Not needed any css styling to work
+	HTML Structureless, plug in anything you want
+
+
 	target -> target for math calculations. In/Out detection
 	animation.target -> target to animate
 
+
 	Circle:
 		Description: Distance calculated from center of target ( in circular shape : radius )
-		Entry: areaDistance
-		Leave: areaDistance
 
 	Square padding:
 		Description: Distance calculated from top, left, right, bottom of rect
 			Default distance is rect of target
-		Entry: areaPadding
-		Leave: areaPadding
 
 	Square distance:
 		Description: Distance calculated from center of target  (in square shape : top, bottom, left, right )
-		Entry: areaPadding
-		Leave: areaPadding
-
 */
-
-// change unnecessarry areadpadding & areaDistance to one the same value called areaDistance
