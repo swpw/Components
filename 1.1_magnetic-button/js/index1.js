@@ -60,7 +60,7 @@ class MagneticObject{
 			}
 		}
 
-		gsap.to(this.target, this.animation.duration, {
+		gsap.to(this.animation.target, this.animation.duration, {
 			transform: `translate(
 				${ translate.x }px, 
 				${ translate.y }px
@@ -69,7 +69,7 @@ class MagneticObject{
 	}
 
 	animateFalloff = () => 
-		gsap.to(this.target, this.animation.duration, {
+		gsap.to(this.animation.target, this.animation.duration, {
 			transform: 'translate(0px, 0px)'
 		})
 
@@ -213,9 +213,9 @@ class MagneticObject{
 /* Init */
 
 const magnetic = new MagneticObject({
-	target: document.querySelectorAll('.magnetic__button')[0],
+	target: document.querySelector('main'),
 	entryArea: {
-		name: 'circle',
+		name: 'square-padding',
 		areaDistance: 100,
 		areaPadding: 0,
 		onMouseEnter: () => {
@@ -223,7 +223,7 @@ const magnetic = new MagneticObject({
 		}
 	},
 	leaveArea: {
-		name: 'circle',
+		name: 'square-padding',
 		areaDistance: 150,
 		areaPadding: 50,
 		translateFactor: .3,
@@ -233,14 +233,15 @@ const magnetic = new MagneticObject({
 		}
 	},
 	animation: {
+		target: document.querySelectorAll('.magnetic__button')[0],
 		duration: .6
 	}
 })
 
 const magneticChild = new MagneticObject({
-	target: document.querySelectorAll('.magnetic__button')[0].children[0],
+	target: document.querySelector('main'),
 	entryArea: {
-		name: 'circle',
+		name: 'square-padding',
 		areaDistance: 100,
 		areaPadding: 0,
 		onMouseEnter: () => {
@@ -248,7 +249,7 @@ const magneticChild = new MagneticObject({
 		}
 	},
 	leaveArea: {
-		name: 'circle',
+		name: 'square-padding',
 		areaDistance: 150,
 		areaPadding: 50,
 		translateFactor: .1,
@@ -258,11 +259,15 @@ const magneticChild = new MagneticObject({
 		}
 	},
 	animation: {
+		target: document.querySelectorAll('.magnetic__button')[0].children[0],
 		duration: .6
 	}
 })
 
 /*
+	target -> target for math calculations. In/Out detection
+	animation.target -> target to animate
+
 	Circle:
 		Description: Distance calculated from center of target ( in circular shape : radius )
 		Entry: areaDistance, areaPadding
@@ -270,6 +275,7 @@ const magneticChild = new MagneticObject({
 
 	Square padding:
 		Description: Distance calculated from top, left, right, bottom of rect
+			Default distance is rect of target
 		Entry: areaPadding
 		Leave: areaPadding
 
@@ -279,10 +285,3 @@ const magneticChild = new MagneticObject({
 		Leave: areaPadding
 
 */
-
-// set default area distance to rect of target
-// set target detection to any element in dom
-// add possibility to set different target of animation and detection
-//  	eg. different div detects In/Out and it animates a seperate button
-// create seperate variable for target detection in/out and target animation
-//		eg. targetInOut & targetAnimation
