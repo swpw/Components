@@ -8,6 +8,16 @@ class MagneticObject{
 		this.animation = animation
 
 
+		/* Set default values */
+		this.entryArea.areaDistance ??= 0
+		this.entryArea.areaPadding ??= 0
+		this.leaveArea.areaDistance ??= 0
+		this.leaveArea.areaPadding ??= 0
+		this.leaveArea.translateFactor ??= 1
+		this.leaveArea.maxDistance ??= null
+		this.animation.target ??= this.target
+		this.animation.duration ??= 1
+
 		/* Magnetic Data */
 		this.previouslyLeft = true
 		this.hasMouseEntered = false
