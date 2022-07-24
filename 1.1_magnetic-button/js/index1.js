@@ -219,7 +219,7 @@ const magnetic = new MagneticObject({
 		areaDistance: 100,
 		areaPadding: 0,
 		onMouseEnter: () => {
-			console.log('Entered')
+			console.log('Entered - parent')
 		}
 	},
 	leaveArea: {
@@ -229,7 +229,7 @@ const magnetic = new MagneticObject({
 		translateFactor: .3,
 		maxDistance: null,
 		onMouseLeave: () => {
-			console.log('Leave')
+			console.log('Leave - parent')
 		}
 	},
 	animation: {
@@ -245,7 +245,7 @@ const magneticChild = new MagneticObject({
 		areaDistance: 100,
 		areaPadding: 0,
 		onMouseEnter: () => {
-			console.log('Entered')
+			console.log('Entered - child')
 		}
 	},
 	leaveArea: {
@@ -255,7 +255,7 @@ const magneticChild = new MagneticObject({
 		translateFactor: .1,
 		maxDistance: 10,
 		onMouseLeave: () => {
-			console.log('Leave')
+			console.log('Leave - child')
 		}
 	},
 	animation: {
