@@ -1,11 +1,12 @@
 class MagneticObject{
-	constructor({ target, entryArea, leaveArea, animation }){
+	constructor({ target, entryArea, leaveArea, animation, helper }){
 		/* User data */
 		this.target = target
 		this.rect = this.target.getBoundingClientRect()
 		this.entryArea = entryArea
 		this.leaveArea = leaveArea
 		this.animation = animation
+		this.isHelper = helper
 
 
 		/* Set default values */
@@ -22,6 +23,8 @@ class MagneticObject{
 		this.previouslyLeft = true
 		this.hasMouseEntered = false
 		this.mouse = { x: 0, y: 0 }
+		this.helper = { entry: { }, leave: { } }
+
 
 
 		/* Events */
@@ -33,6 +36,10 @@ class MagneticObject{
 
 		window.addEventListener('scroll', () => 
 			this.rect = this.target.getBoundingClientRect())
+
+
+		/* Helper */
+		this.isHelper && this.addHelper()
 
 
 		/* Render */
@@ -57,6 +64,127 @@ class MagneticObject{
 		Math.sign(number) === -1
 			? max > Math.abs(number) ? number : -max
 			: max > number ? number : max
+
+
+	/* Helper */
+	addHelper = () => {
+		const entry = document.createElement('magnetic-helper-entry'),
+			leave = document.createElement('magnetic-helper-leave')
+		
+		document.body.appendChild(entry)
+		document.body.appendChild(leave)
+
+		this.helper.entryDOM = entry
+		this.helper.leaveDOM = leave
+
+		this.updateHelper()
+
+		window.addEventListener('resize', () => this.updateHelper())
+		window.addEventListener('scroll', () => this.updateHelper())
+	}
+
+	updateHelper = () => {
+		// Circle Entry
+		if( this.entryArea.name === 'circle' ){
+			const size = 2 * this.entryArea.areaDistance
+
+			this.helper.entry = {
+				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ),
+				y: window.pageYOffset + this.rect.top + ( this.rect.height / 2 ) - ( size / 2 ),
+				width: size,
+				height: size,
+				radius: 100,
+			}
+		}
+
+		// Circle Leave
+		if(this.leaveArea.name === 'circle'){
+			const size = 2 * this.leaveArea.areaDistance
+
+			this.helper.leave = {
+				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ) ,
+				y: window.pageYOffset + this.rect.top + ( this.rect.height / 2 ) - ( size / 2 ),
+				width: size,
+				height: size,
+				radius: 100,
+			}
+		}
+
+		// Square padding Entry
+		if( this.entryArea.name === 'square-padding' ){
+			this.helper.entry = {
+				x: window.pageXOffset + this.rect.left - this.entryArea.areaPadding,
+				y: window.pageYOffset + this.rect.top - this.entryArea.areaPadding,
+				width: this.rect.width + ( 2 * this.entryArea.areaPadding ),
+				height: this.rect.height + ( 2 * this.entryArea.areaPadding ),
+				radius: 0,
+			}
+		}
+
+		// Square padding Leave
+		if(this.leaveArea.name === 'square-padding'){
+			this.helper.leave = {
+				x: window.pageXOffset + this.rect.left - this.leaveArea.areaPadding,
+				y: window.pageYOffset + this.rect.top - this.leaveArea.areaPadding,
+				width: this.rect.width + ( 2 * this.leaveArea.areaPadding ),
+				height: this.rect.height + ( 2 * this.leaveArea.areaPadding ),
+				radius: 0,
+			}
+		}
+
+		// Square distance Entry
+		if( this.entryArea.name === 'square-distance' ){
+			const size = 2 * this.entryArea.areaPadding
+
+			this.helper.entry = {
+				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ),
+				y: window.pageYOffset + this.rect.top + ( this.rect.height / 2 ) - ( size / 2 ),
+				width: size,
+				height: size,
+				radius: 0,
+			}
+		}
+
+		// Square distance Leave
+		if(this.leaveArea.name === 'square-distance'){
+			const size = 2 * this.leaveArea.areaPadding
+
+			this.helper.leave = {
+				x: window.pageXOffset + this.rect.left + ( this.rect.width / 2 ) - ( size / 2 ),
+				y: window.pageYOffset + this.rect.top + ( this.rect.height / 2 ) - ( size / 2 ),
+				width: size,
+				height: size,
+				radius: 0,
+			}
+		}
+
+		
+		const entry = this.helper.entryDOM,
+			leave = this.helper.leaveDOM
+
+		entry.style.position = 'absolute'
+		entry.style.top = this.helper.entry.y + 'px'
+		entry.style.left = this.helper.entry.x + 'px'
+		entry.style.width = this.helper.entry.width + 'px'
+		entry.style.height = this.helper.entry.height + 'px'
+		entry.style.borderRadius = this.helper.entry.radius + '%'
+		entry.style.border = '1px dashed red'
+
+
+		leave.style.position = 'absolute'
+		leave.style.top = this.helper.leave.y + 'px'
+		leave.style.left = this.helper.leave.x + 'px'
+		leave.style.width = this.helper.leave.width + 'px'
+		leave.style.height = this.helper.leave.height + 'px'
+		leave.style.borderRadius = this.helper.leave.radius + '%'
+		leave.style.border = '1px dashed blue'
+
+		console.log('update', this.rect.left, this.rect.top)
+	}
+
+	removeHelper = () => {
+		// console.log(this.helper)
+	}
 
 
 	/* Animations of In/Out */ 
@@ -88,7 +216,7 @@ class MagneticObject{
 	renderCircle = mouseDistance => {
 		/* CIRCLE ENTRY */
 		if( this.entryArea.name === 'circle'
-			&& mouseDistance <= this.entryArea.areaDistance + this.entryArea.areaPadding
+			&& mouseDistance <= this.entryArea.areaDistance
 			&& !this.hasMouseEntered ){
 
 				this.hasMouseEntered = true
@@ -99,7 +227,7 @@ class MagneticObject{
 
 		/* CIRCLE LEAVE */
 		if( this.leaveArea.name === 'circle'  
-			&& mouseDistance <= this.leaveArea.areaDistance + this.leaveArea.areaPadding
+			&& mouseDistance <= this.leaveArea.areaDistance
 			&& this.hasMouseEntered ){
 
 				/* Mouse's inside element area */ 
@@ -245,7 +373,8 @@ const magnetic = new MagneticObject({
 	animation: {
 		target: document.querySelectorAll('.magnetic__button')[0],
 		duration: .6
-	}
+	},
+	helper: true
 })
 
 const magneticChild = new MagneticObject({
@@ -263,7 +392,7 @@ const magneticChild = new MagneticObject({
 		areaDistance: 150,
 		areaPadding: 50,
 		translateFactor: .1,
-		maxDistance: 10,
+		maxDistance: 5,
 		onMouseLeave: () => {
 			console.log('Leave - child')
 		}
@@ -271,7 +400,8 @@ const magneticChild = new MagneticObject({
 	animation: {
 		target: document.querySelectorAll('.magnetic__button')[0].children[0],
 		duration: .6
-	}
+	},
+	helper: true
 })
 
 /*
@@ -280,8 +410,8 @@ const magneticChild = new MagneticObject({
 
 	Circle:
 		Description: Distance calculated from center of target ( in circular shape : radius )
-		Entry: areaDistance, areaPadding
-		Leave: areaDistance, areaPadding
+		Entry: areaDistance
+		Leave: areaDistance
 
 	Square padding:
 		Description: Distance calculated from top, left, right, bottom of rect
@@ -295,3 +425,95 @@ const magneticChild = new MagneticObject({
 		Leave: areaPadding
 
 */
+
+// change unnecessarry areadpadding & areaDistance to one the same value called areaDistance
+
+
+
+
+
+
+
+/* For tests */
+
+
+// const magnetic = new MagneticObject({
+// 	target: document.querySelector('main'),
+// 	entryArea: {
+// 		name: 'square-padding',
+// 		areaDistance: 100,
+// 		areaPadding: 0,
+// 		onMouseEnter: () => {
+// 			console.log('Entered - parent')
+// 		}
+// 	},
+// 	leaveArea: {
+// 		name: 'square-padding',
+// 		areaDistance: 150,
+// 		areaPadding: 50,
+// 		translateFactor: .3,
+// 		maxDistance: null,
+// 		onMouseLeave: () => {
+// 			console.log('Leave - parent')
+// 		}
+// 	},
+// 	animation: {
+// 		target: document.querySelectorAll('.magnetic__button')[0],
+// 		duration: .6
+// 	},
+// 	helper: true
+// })
+
+// const magnetic = new MagneticObject({
+// 	target: document.querySelector('main'),
+// 	entryArea: {
+// 		name: 'circle',
+// 		areaDistance: 40,
+// 		areaPadding: 20,
+// 		onMouseEnter: () => {
+// 			console.log('Entered - parent')
+// 		}
+// 	},
+// 	leaveArea: {
+// 		name: 'circle',
+// 		areaDistance: 80,
+// 		areaPadding: 40,
+// 		translateFactor: .3,
+// 		maxDistance: null,
+// 		onMouseLeave: () => {
+// 			console.log('Leave - parent')
+// 		}
+// 	},
+// 	animation: {
+// 		target: document.querySelectorAll('.magnetic__button')[0],
+// 		duration: .6
+// 	},
+// 	helper: true
+// })
+
+// const magnetic = new MagneticObject({
+// 	target: document.querySelector('main'),
+// 	entryArea: {
+// 		name: 'square-distance',
+// 		areaDistance: 40,
+// 		areaPadding: 80,
+// 		onMouseEnter: () => {
+// 			console.log('Entered - parent')
+// 		}
+// 	},
+// 	leaveArea: {
+// 		name: 'square-distance',
+// 		areaDistance: 80,
+// 		areaPadding: 140,
+// 		translateFactor: .3,
+// 		maxDistance: null,
+// 		onMouseLeave: () => {
+// 			console.log('Leave - parent')
+// 		}
+// 	},
+// 	animation: {
+// 		target: document.querySelectorAll('.magnetic__button')[0],
+// 		duration: .6
+// 	},
+// 	helper: true
+// })
