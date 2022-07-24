@@ -17,6 +17,8 @@ class MagneticObject{
 		this.leaveArea.translateFactor ??= 1
 		this.leaveArea.maxDistance ??= null
 		this.animation.target ??= this.target
+		this.animation.easeEntry ??= ''
+		this.animation.easeLeave ??= ''
 		this.animation.duration ??= 1
 		this.isHelper ??= false
 
@@ -205,13 +207,16 @@ class MagneticObject{
 			transform: `translate(
 				${ translate.x }px, 
 				${ translate.y }px
-			)`
+			)`,
+			ease: this.animation.easeEntry,
 		})
 	}
 
 	animateFalloff = () => 
 		gsap.to(this.animation.target, this.animation.duration, {
-			transform: 'translate(0px, 0px)'
+			transform: 'translate(0px, 0px)',
+			ease: Back.easeOut,
+			ease: this.animation.easeLeave,
 		})
 
 	
@@ -375,7 +380,9 @@ const magnetic = new MagneticObject({
 	},
 	animation: {
 		target: document.querySelectorAll('.magnetic__button')[0],
-		duration: .6
+		duration: .6,
+		easeEntry: Power2.easeOut,
+		easeLeave: Back.easeOut,
 	},
 	helper: true
 })
@@ -402,7 +409,9 @@ const magneticChild = new MagneticObject({
 	},
 	animation: {
 		target: document.querySelectorAll('.magnetic__button')[0].children[0],
-		duration: .6
+		duration: .6,
+		easeEntry: Power2.easeOut,
+		easeLeave: Back.easeOut,
 	},
 	helper: false
 })
@@ -430,93 +439,3 @@ const magneticChild = new MagneticObject({
 */
 
 // change unnecessarry areadpadding & areaDistance to one the same value called areaDistance
-
-
-
-
-
-
-
-/* For tests */
-
-
-// const magnetic = new MagneticObject({
-// 	target: document.querySelector('main'),
-// 	entryArea: {
-// 		name: 'square-padding',
-// 		areaDistance: 100,
-// 		areaPadding: 0,
-// 		onMouseEnter: () => {
-// 			console.log('Entered - parent')
-// 		}
-// 	},
-// 	leaveArea: {
-// 		name: 'square-padding',
-// 		areaDistance: 150,
-// 		areaPadding: 50,
-// 		translateFactor: .3,
-// 		maxDistance: null,
-// 		onMouseLeave: () => {
-// 			console.log('Leave - parent')
-// 		}
-// 	},
-// 	animation: {
-// 		target: document.querySelectorAll('.magnetic__button')[0],
-// 		duration: .6
-// 	},
-// 	helper: true
-// })
-
-// const magnetic = new MagneticObject({
-// 	target: document.querySelector('main'),
-// 	entryArea: {
-// 		name: 'circle',
-// 		areaDistance: 40,
-// 		areaPadding: 20,
-// 		onMouseEnter: () => {
-// 			console.log('Entered - parent')
-// 		}
-// 	},
-// 	leaveArea: {
-// 		name: 'circle',
-// 		areaDistance: 80,
-// 		areaPadding: 40,
-// 		translateFactor: .3,
-// 		maxDistance: null,
-// 		onMouseLeave: () => {
-// 			console.log('Leave - parent')
-// 		}
-// 	},
-// 	animation: {
-// 		target: document.querySelectorAll('.magnetic__button')[0],
-// 		duration: .6
-// 	},
-// 	helper: true
-// })
-
-// const magnetic = new MagneticObject({
-// 	target: document.querySelector('main'),
-// 	entryArea: {
-// 		name: 'square-distance',
-// 		areaDistance: 40,
-// 		areaPadding: 80,
-// 		onMouseEnter: () => {
-// 			console.log('Entered - parent')
-// 		}
-// 	},
-// 	leaveArea: {
-// 		name: 'square-distance',
-// 		areaDistance: 80,
-// 		areaPadding: 140,
-// 		translateFactor: .3,
-// 		maxDistance: null,
-// 		onMouseLeave: () => {
-// 			console.log('Leave - parent')
-// 		}
-// 	},
-// 	animation: {
-// 		target: document.querySelectorAll('.magnetic__button')[0],
-// 		duration: .6
-// 	},
-// 	helper: true
-// })
