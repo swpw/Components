@@ -18,6 +18,7 @@ class MagneticObject{
 		this.leaveArea.maxDistance ??= null
 		this.animation.target ??= this.target
 		this.animation.duration ??= 1
+		this.isHelper ??= false
 
 		/* Magnetic Data */
 		this.previouslyLeft = true
@@ -181,7 +182,11 @@ class MagneticObject{
 	}
 
 	removeHelper = () => {
-		// console.log(this.helper)
+		this.helper.entryDOM.remove()
+		this.helper.leaveDOM.remove()
+
+		this.helper = null
+		this.isHelper = false
 	}
 
 
@@ -375,34 +380,32 @@ const magnetic = new MagneticObject({
 	helper: true
 })
 
-magnetic.removeHelper()
-
-// const magneticChild = new MagneticObject({
-// 	target: document.querySelector('main'),
-// 	entryArea: {
-// 		name: 'square-padding',
-// 		areaDistance: 100,
-// 		areaPadding: 0,
-// 		onMouseEnter: () => {
-// 			console.log('Entered - child')
-// 		}
-// 	},
-// 	leaveArea: {
-// 		name: 'square-padding',
-// 		areaDistance: 150,
-// 		areaPadding: 50,
-// 		translateFactor: .1,
-// 		maxDistance: 5,
-// 		onMouseLeave: () => {
-// 			console.log('Leave - child')
-// 		}
-// 	},
-// 	animation: {
-// 		target: document.querySelectorAll('.magnetic__button')[0].children[0],
-// 		duration: .6
-// 	},
-// 	helper: true
-// })
+const magneticChild = new MagneticObject({
+	target: document.querySelector('main'),
+	entryArea: {
+		name: 'square-padding',
+		areaDistance: 100,
+		areaPadding: 0,
+		onMouseEnter: () => {
+			console.log('Entered - child')
+		}
+	},
+	leaveArea: {
+		name: 'square-padding',
+		areaDistance: 150,
+		areaPadding: 50,
+		translateFactor: .1,
+		maxDistance: 5,
+		onMouseLeave: () => {
+			console.log('Leave - child')
+		}
+	},
+	animation: {
+		target: document.querySelectorAll('.magnetic__button')[0].children[0],
+		duration: .6
+	},
+	helper: false
+})
 
 /*
 	target -> target for math calculations. In/Out detection
